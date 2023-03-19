@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server id.go
 
 FROM alpine:latest
 
