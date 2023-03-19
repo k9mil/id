@@ -6,7 +6,7 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server id.go
 
-FROM alpine:latest
+FROM alpine:3.15
 
 WORKDIR /root
 
