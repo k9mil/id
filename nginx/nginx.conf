@@ -1,0 +1,12 @@
+server {
+    listen 443 ssl;
+
+    server_name id.kamil.codes www.id.kamil.codes;
+
+    ssl_certificate     /etc/letsencrypt/live/id.kamil.codes/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/id.kamil.codes/privkey.pem;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}

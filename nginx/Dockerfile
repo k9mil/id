@@ -1,12 +1,13 @@
-server {
-    listen 443 ssl;
+FROM nginx
 
-    server_name id.kamil.codes www.id.kamil.codes;
+RUN apt update -y \
+    && apt install nginx -y \
+    && apt-get install software-properties-common -y \
+    && add-apt-repository -r ppa:certbot/certbot -y \
+    && apt-get update -y \
+    && apt-get install python3-certbot-nginx -y \
+    && apt-get clean
 
-    ssl_certificate     /etc/letsencrypt/live/id.kamil.codes/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/id.kamil.codes/privkey.pem;
+RUN rm /etc/nginx/conf.d/default.conf
 
-    location / {
-        proxy_pass http://backend;
-    }
-}
+COPY nginx.conf /etc/nginx/conf.d/
