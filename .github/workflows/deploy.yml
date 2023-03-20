@@ -1,0 +1,31 @@
+name: Deploy to DigitalOcean
+
+on: [push]
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          key: ${{ secrets.KEY }}
+          script: |
+            git pull
+            export POSTGRES_USER_DOCKER=${{ secrets.POSTGRES_USER_DOCKER }}
+            export POSTGRES_PASSWORD_DOCKER=${{ secrets.POSTGRES_PASSWORD_DOCKER }}
+            export POSTGRES_DB_DOCKER=${{ secrets.POSTGRES_DB_DOCKER }}
+            export DATABASE_URL_DOCKER=${{ secrets.DATABASE_URL_DOCKER }}
+            export SECRET_KEY_DOCKER=${{ secrets.SECRET_KEY_DOCKER }}
+            export MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
+            export MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
+            docker-compose -f docker-compose.prod.yml down --remove-orphans
+            docker rm -f $(docker ps -a -q)
+            docker-compose -f docker-compose.prod.yml build
+            docker-compose -f docker-compose.prod.yml up -d
