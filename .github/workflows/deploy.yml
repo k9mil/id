@@ -17,6 +17,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           key: ${{ secrets.KEY }}
           script: |
+            cd id
             git pull
             docker-compose -f docker-compose.yml down --remove-orphans
             docker rm -f $(docker ps -a -q)
