@@ -6,8 +6,7 @@ import (
 	"net/http"
 )
 
-const content = `
-|  software engineer & designer
+const content = `|  software engineer & designer
 |
 |  kamil#6027 886739001812332564
 |  hi@kamil.codes
