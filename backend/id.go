@@ -11,6 +11,7 @@ const content = `|  software engineer & designer
 |  kamil#6027 886739001812332564
 |  hi@kamil.codes
 |  https://kamil.codes
+|  https://github.com/k9mil
 |  https://www.linkedin.com/in/kamilzak00
 `
 
